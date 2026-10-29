@@ -1,0 +1,39 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Angular / build output
+frontend/dist/
+frontend/.angular/
+bff/dist/
+dist/
+tmp/
+out-tsc/
+
+# Playwright
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Editor / OS
+.idea/
+.vscode/*
+!.vscode/extensions.json
+.DS_Store
+Thumbs.db
+*.log
+npm-debug.log*
+
+# BFF local data store
+bff/data/*.json
+
+# Private planning / AI artifacts — not for the public repo
+design.md
+steps.md
+instructions.txt
