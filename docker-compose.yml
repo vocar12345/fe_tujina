@@ -1,0 +1,18 @@
+# Local two-service stack: Nginx-served Angular + NestJS BFF.
+# Open http://localhost:8080 — the frontend proxies /api to the bff service.
+services:
+  bff:
+    build: ./bff
+    environment:
+      PORT: "3000"
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    environment:
+      BFF_URL: "http://bff:3000"
+    ports:
+      - "8080:80"
+    depends_on:
+      - bff
+    restart: unless-stopped
