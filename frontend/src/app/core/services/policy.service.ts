@@ -47,14 +47,22 @@ export class PolicyService {
     this.persist([]);
   }
 
-  /** Replace the local store with the BFF's copy, if the BFF answers. */
+  /**
+   * Merge the BFF's copy into the local store (local wins on id conflicts),
+   * newest first. We MERGE rather than overwrite so a returning user never
+   * loses locally-saved policies if the BFF's (ephemeral) store has reset.
+   */
   private hydrateFromBff(): void {
     this.api.list().subscribe({
-      next: (list) => {
-        if (Array.isArray(list)) {
-          this._policies.set(list);
-          this.saveToStorage(list);
-        }
+      next: (remote) => {
+        if (!Array.isArray(remote)) return;
+        const byId = new Map<string, Policy>();
+        for (const p of remote) byId.set(p.id, p);
+        for (const p of this._policies()) byId.set(p.id, p); // local takes precedence
+        const merged = [...byId.values()].sort((a, b) =>
+          b.concludedAt.localeCompare(a.concludedAt),
+        );
+        this.persist(merged);
       },
       error: () => {
         /* BFF unreachable — keep the localStorage copy. */
