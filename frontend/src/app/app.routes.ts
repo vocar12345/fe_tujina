@@ -8,6 +8,10 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./features/sklenitev/sklenitev-page').then((m) => m.SklenitevPage),
   },
-  // '/police' route is added in Phase 5 (policy list).
+  {
+    path: 'police',
+    title: 'Sklenjene police',
+    loadComponent: () => import('./features/police/police-page').then((m) => m.PolicePage),
+  },
   { path: '**', redirectTo: 'sklenitev' },
 ];

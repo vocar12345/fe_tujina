@@ -1,0 +1,49 @@
+<section class="page">
+  <h1>Sklenjene police</h1>
+
+  @if (policies().length === 0) {
+    <div class="empty" data-testid="policy-empty">
+      <p>Še nimate sklenjenih polic.</p>
+      <a routerLink="/sklenitev">Sklenite prvo polico</a>
+    </div>
+  } @else {
+    <table class="policy-table" data-testid="policy-list">
+      <thead>
+        <tr>
+          <th>Zavarovanec</th>
+          <th>Paket</th>
+          <th>Destinacija</th>
+          <th>Obdobje</th>
+          <th>Zav. vsota</th>
+          <th>Premija</th>
+          <th>Sklenjeno</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (p of policies(); track p.id) {
+          <tr data-testid="policy-row">
+            <td>{{ p.personal.firstName }} {{ p.personal.lastName }}</td>
+            <td>{{ p.packageCode }} – {{ packageName(p.packageCode) }}</td>
+            <td>{{ p.personal.destination }}</td>
+            <td>{{ p.personal.tripStart }} – {{ p.personal.tripEnd }}</td>
+            <td>{{ p.insuredSum | eur }}</td>
+            <td><strong>{{ p.premium | eur }}</strong></td>
+            <td>{{ p.concludedAt | date: 'dd.MM.yyyy HH:mm' }}</td>
+            <td>
+              <button
+                type="button"
+                class="del"
+                data-testid="delete-btn"
+                aria-label="Izbriši polico"
+                (click)="remove(p.id)"
+              >
+                Izbriši
+              </button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</section>
