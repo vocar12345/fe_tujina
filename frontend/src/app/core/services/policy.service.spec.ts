@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
 import { PolicyService } from './policy.service';
 import { Policy } from '../models/policy.model';
 
@@ -26,6 +27,7 @@ describe('PolicyService', () => {
   beforeEach(() => {
     localStorage.clear();
     TestBed.resetTestingModule();
+    TestBed.configureTestingModule({ providers: [provideHttpClient()] });
   });
 
   function service(): PolicyService {
@@ -52,7 +54,9 @@ describe('PolicyService', () => {
 
   it('persists across a fresh service instance (reload)', () => {
     service().add(makePolicy('a'));
-    TestBed.resetTestingModule(); // simulate a page reload -> new instance
+    // simulate a page reload -> brand new service instance
+    TestBed.resetTestingModule();
+    TestBed.configureTestingModule({ providers: [provideHttpClient()] });
     expect(service().policies().map((p) => p.id)).toEqual(['a']);
   });
 
