@@ -1,0 +1,42 @@
+:host {
+  display: block;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 0.9rem 1.5rem;
+  background: #1f3a5f;
+  color: #fff;
+
+  .brand {
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: #fff;
+    text-decoration: none;
+    letter-spacing: 0.3px;
+  }
+
+  nav {
+    display: flex;
+    gap: 1.25rem;
+
+    a {
+      color: #cdd8e6;
+      text-decoration: none;
+      font-size: 0.95rem;
+      padding-bottom: 2px;
+      border-bottom: 2px solid transparent;
+
+      &:hover {
+        color: #fff;
+      }
+
+      &.active {
+        color: #fff;
+        border-bottom-color: #4a9eff;
+      }
+    }
+  }
+}

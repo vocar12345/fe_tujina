@@ -1,0 +1,59 @@
+.insurance-form {
+  fieldset {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1rem 1.25rem 1.25rem;
+    margin: 0 0 1.25rem;
+  }
+
+  legend {
+    font-weight: 600;
+    padding: 0 0.4rem;
+    color: #2c3e50;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+  }
+
+  label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+    color: #34495e;
+  }
+
+  input,
+  select {
+    padding: 0.55rem 0.6rem;
+    border: 1px solid #cfd6dd;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    background: #fff;
+
+    &:focus {
+      outline: none;
+      border-color: #2a7de1;
+      box-shadow: 0 0 0 3px rgba(42, 125, 225, 0.15);
+    }
+
+    &.ng-invalid.ng-touched {
+      border-color: #c0392b;
+    }
+  }
+
+  .field-error {
+    margin-top: 0.25rem;
+    small {
+      color: #c0392b;
+      font-size: 0.8rem;
+    }
+  }
+}

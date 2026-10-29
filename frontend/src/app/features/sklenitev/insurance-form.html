@@ -1,0 +1,71 @@
+<form [formGroup]="form" class="insurance-form" novalidate>
+  <fieldset>
+    <legend>Osebni podatki</legend>
+
+    <div class="grid">
+      <div class="field">
+        <label for="firstName">Ime</label>
+        <input id="firstName" type="text" formControlName="firstName" autocomplete="given-name" />
+        <app-field-error [control]="control('firstName')" />
+      </div>
+
+      <div class="field">
+        <label for="lastName">Priimek</label>
+        <input id="lastName" type="text" formControlName="lastName" autocomplete="family-name" />
+        <app-field-error [control]="control('lastName')" />
+      </div>
+
+      <div class="field">
+        <label for="birthDate">Datum rojstva</label>
+        <input id="birthDate" type="date" formControlName="birthDate" />
+        <app-field-error [control]="control('birthDate')" />
+      </div>
+
+      <div class="field">
+        <label for="email">E-pošta</label>
+        <input id="email" type="email" formControlName="email" autocomplete="email" />
+        <app-field-error [control]="control('email')" />
+      </div>
+
+      <div class="field">
+        <label for="phone">Telefon</label>
+        <input id="phone" type="tel" formControlName="phone" autocomplete="tel" placeholder="+386 40 123 456" />
+        <app-field-error [control]="control('phone')" />
+      </div>
+
+      <div class="field">
+        <label for="destination">Država potovanja</label>
+        <select id="destination" formControlName="destination">
+          <option value="" disabled>Izberite državo…</option>
+          @for (d of destinations; track d.country) {
+            <option [value]="d.country">{{ d.country }}</option>
+          }
+        </select>
+        <app-field-error [control]="control('destination')" />
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Obdobje potovanja</legend>
+
+    <div class="grid">
+      <div class="field">
+        <label for="tripStart">Datum začetka</label>
+        <input id="tripStart" type="date" formControlName="tripStart" />
+        <app-field-error [control]="control('tripStart')" />
+      </div>
+
+      <div class="field">
+        <label for="tripEnd">Datum konca</label>
+        <input id="tripEnd" type="date" formControlName="tripEnd" />
+        <app-field-error [control]="control('tripEnd')" />
+        @if (dateRangeInvalid) {
+          <div class="field-error" role="alert">
+            <small>Datum konca ne sme biti pred datumom začetka.</small>
+          </div>
+        }
+      </div>
+    </div>
+  </fieldset>
+</form>
