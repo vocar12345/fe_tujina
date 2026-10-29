@@ -1,0 +1,24 @@
+<aside class="live-premium" data-testid="live-premium">
+  <h2>Premija</h2>
+
+  @if (breakdown; as b) {
+    <div class="amount" data-testid="premium-amount">{{ b.premium | eur }}</div>
+
+    <ul class="breakdown">
+      <li><span>Dnevna osnova</span><span>{{ b.dailyBase | eur }}</span></li>
+      <li><span>Trajanje</span><span>{{ b.days }} dni</span></li>
+      <li><span>Faktor starosti ({{ b.age }} let)</span><span>× {{ b.ageFactor }}</span></li>
+      <li><span>Faktor destinacije</span><span>× {{ b.destinationFactor }}</span></li>
+    </ul>
+
+    @if (pkg) {
+      <div class="insured">
+        Zavarovalna vsota: <strong>{{ pkg.insuredSum | eur }}</strong>
+      </div>
+    }
+
+    <p class="formula">osnova × dnevi × starost × destinacija</p>
+  } @else {
+    <p class="hint">Izberite paket in izpolnite podatke za izračun premije.</p>
+  }
+</aside>

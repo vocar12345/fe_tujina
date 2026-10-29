@@ -1,5 +1,5 @@
 .page {
-  max-width: 900px;
+  max-width: 1050px;
   margin: 0 auto;
   padding: 1.5rem 1rem 3rem;
 }
@@ -13,4 +13,23 @@ h1 {
 .lead {
   color: #667;
   margin: 0 0 1.5rem;
+}
+
+.section-title {
+  font-size: 1.1rem;
+  color: #2c3e50;
+  margin: 1.5rem 0 0.75rem;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (max-width: 800px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
 }

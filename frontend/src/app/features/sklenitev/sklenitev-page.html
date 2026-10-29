@@ -2,5 +2,19 @@
   <h1>Sklenitev zavarovanja za tujino</h1>
   <p class="lead">Izpolnite podatke, izberite paket in sklenite polico.</p>
 
-  <app-insurance-form [form]="form" />
+  <div class="layout">
+    <div class="main">
+      <app-insurance-form [form]="form" />
+
+      <h2 class="section-title">Izbira paketa</h2>
+      <app-package-selector
+        [selected]="selectedPackage()"
+        (select)="selectPackage($event)"
+      />
+    </div>
+
+    <div class="side">
+      <app-live-premium [breakdown]="premium()" [pkg]="selectedPkg()" />
+    </div>
+  </div>
 </section>

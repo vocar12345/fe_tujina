@@ -1,0 +1,57 @@
+.live-premium {
+  position: sticky;
+  top: 1rem;
+  background: #fff;
+  border: 1px solid #e0e6ec;
+  border-radius: 10px;
+  padding: 1.25rem;
+
+  h2 {
+    margin: 0 0 0.5rem;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    color: #78889a;
+  }
+
+  .amount {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #1f3a5f;
+    margin-bottom: 0.75rem;
+  }
+
+  .breakdown {
+    list-style: none;
+    margin: 0 0 0.75rem;
+    padding: 0;
+
+    li {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      color: #4a5a6a;
+      padding: 0.2rem 0;
+      border-bottom: 1px dashed #eef1f5;
+    }
+  }
+
+  .insured {
+    font-size: 0.9rem;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+  }
+
+  .formula {
+    font-size: 0.75rem;
+    color: #9aa7b4;
+    font-style: italic;
+    margin: 0;
+  }
+
+  .hint {
+    color: #78889a;
+    font-size: 0.9rem;
+    margin: 0;
+  }
+}

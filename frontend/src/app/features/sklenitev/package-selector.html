@@ -1,0 +1,30 @@
+<div class="packages">
+  @for (p of packages; track p.code) {
+    <button
+      type="button"
+      class="pkg"
+      [class.selected]="selected === p.code"
+      [attr.aria-pressed]="selected === p.code"
+      [attr.data-package]="p.code"
+      (click)="select.emit(p.code)"
+    >
+      <div class="pkg-head">
+        <span class="code">{{ p.code }}</span>
+        <span class="name">{{ p.name }}</span>
+      </div>
+
+      <div class="sum">
+        <span class="label">Zavarovalna vsota</span>
+        <strong>{{ p.insuredSum | eur }}</strong>
+      </div>
+
+      <ul class="coverages">
+        @for (c of p.coverages; track c) {
+          <li>{{ c }}</li>
+        }
+      </ul>
+
+      <div class="from">od {{ p.dailyBase | eur }} / dan</div>
+    </button>
+  }
+</div>
