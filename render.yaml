@@ -26,8 +26,8 @@ services:
     rootDir: frontend
     buildCommand: npm ci && npm run build
     staticPublishPath: dist/frontend/browser
-    region: frankfurt
-    plan: free
+    # NOTE: static sites are global on Render — they must NOT set `region` or
+    # `plan` (doing so fails Blueprint validation).
     routes:
       - type: rewrite
         source: /api/*
