@@ -15,6 +15,27 @@
 
     <div class="side">
       <app-live-premium [breakdown]="premium()" [pkg]="selectedPkg()" />
+
+      <button
+        type="button"
+        class="conclude-btn"
+        data-testid="conclude-btn"
+        [disabled]="!canConclude()"
+        (click)="conclude()"
+      >
+        Sklen i polico
+      </button>
     </div>
   </div>
+
+  @if (lastConcluded(); as policy) {
+    <div class="success" data-testid="conclude-success" role="status">
+      <strong>Polica uspešno sklenjena!</strong>
+      <span>
+        {{ policy.personal.firstName }} {{ policy.personal.lastName }} —
+        paket {{ policy.packageCode }}, premija {{ policy.premium | eur }}.
+        Polico si lahko ogledate v zavihku <a routerLink="/police">Police</a>.
+      </span>
+    </div>
+  }
 </section>

@@ -33,3 +33,44 @@ h1 {
     grid-template-columns: 1fr;
   }
 }
+
+.conclude-btn {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background: #2a7de1;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    opacity 0.15s;
+
+  &:hover:not(:disabled) {
+    background: #1f6ac9;
+  }
+
+  &:disabled {
+    background: #a9bdd4;
+    cursor: not-allowed;
+  }
+}
+
+.success {
+  margin-top: 1.5rem;
+  padding: 1rem 1.25rem;
+  background: #e8f6ec;
+  border: 1px solid #b7e0c2;
+  border-radius: 8px;
+  color: #1e7a3d;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+
+  a {
+    color: #1f6ac9;
+  }
+}
