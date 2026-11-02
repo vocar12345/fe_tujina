@@ -36,6 +36,14 @@ docker-compose.yml
 
 ---
 
+## Predpogoji
+
+- **Node.js** `20.19+`, `22.12+` ali `24+` (zahteva Angular 20) in **npm**.
+- **Google Chrome / Chromium** — potreben za unit teste (Karma ga zažene).
+- **Docker** (opcijsko) — samo za zagon prek `docker compose`.
+
+---
+
 ## Zagon lokalno
 
 ### Frontend (dovolj za celotno aplikacijo — deluje prek `localStorage`)
