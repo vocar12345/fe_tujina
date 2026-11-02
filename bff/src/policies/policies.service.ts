@@ -2,6 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { dirname, join } from 'path';
 import { PACKAGES, Policy, calculatePremium } from '../domain/pricing';
+import { validatePersonalData } from '../domain/validation';
 
 /**
  * File-backed policy store. The JSON file is enough for this assignment; the
@@ -26,6 +27,11 @@ export class PoliciesService {
   create(input: Policy): Policy {
     if (!input?.packageCode || !PACKAGES[input.packageCode] || !input.personal) {
       throw new BadRequestException('Invalid policy payload');
+    }
+
+    const errors = validatePersonalData(input.personal);
+    if (errors.length) {
+      throw new BadRequestException(errors);
     }
 
     let premium: number;

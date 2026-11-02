@@ -71,4 +71,26 @@ describe('PoliciesService', () => {
     });
     expect(() => service.create(bad)).toThrow();
   });
+
+  it('rejects an implausibly old person (age 200) instead of pricing them', () => {
+    const bad = makePolicy({
+      personal: { ...makePolicy().personal, birthDate: '1820-01-01' },
+    });
+    expect(() => service.create(bad)).toThrow();
+    expect(service.findAll()).toEqual([]); // nothing persisted
+  });
+
+  it('rejects an end date before the start date', () => {
+    const bad = makePolicy({
+      personal: { ...makePolicy().personal, tripStart: '2025-06-10', tripEnd: '2025-06-01' },
+    });
+    expect(() => service.create(bad)).toThrow();
+  });
+
+  it('rejects an invalid email', () => {
+    const bad = makePolicy({
+      personal: { ...makePolicy().personal, email: 'not-an-email' },
+    });
+    expect(() => service.create(bad)).toThrow();
+  });
 });
