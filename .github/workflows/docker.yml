@@ -1,0 +1,55 @@
+name: Docker
+
+# Proves the Docker setup end to end on a runner that has virtualization:
+# build both images, start the stack, and verify the frontend container serves
+# the Angular app and proxies /api to the BFF.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  compose:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build and start the stack
+        run: docker compose up --build -d
+
+      - name: Frontend container serves the Angular app
+        run: |
+          for i in $(seq 1 30); do
+            if curl -fsS http://localhost:8080/ -o /tmp/index.html; then
+              break
+            fi
+            echo "waiting for frontend... ($i)"; sleep 2
+          done
+          echo "--- served index.html ---"; cat /tmp/index.html
+          grep -q "<app-root" /tmp/index.html
+
+      - name: SPA deep-link falls back to index.html
+        run: |
+          code=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/police)
+          echo "GET /police -> $code"
+          test "$code" = "200"
+
+      - name: /api proxy reaches the BFF
+        run: |
+          for i in $(seq 1 30); do
+            code=$(curl -s -o /tmp/api.out -w "%{http_code}" http://localhost:8080/api/policies || true)
+            if [ "$code" = "200" ]; then
+              echo "BFF reachable via /api (200):"; cat /tmp/api.out; exit 0
+            fi
+            echo "waiting for BFF via proxy... ($i) got $code"; sleep 2
+          done
+          echo "BFF not reachable via /api proxy"; exit 1
+
+      - name: Dump logs on failure
+        if: failure()
+        run: docker compose logs
+
+      - name: Tear down
+        if: always()
+        run: docker compose down -v
